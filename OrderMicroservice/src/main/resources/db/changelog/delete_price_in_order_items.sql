@@ -1,0 +1,1 @@
+ALTER TABLE orders_items DROP COLUMN IF EXISTS price_snapshot;

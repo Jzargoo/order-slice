@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/create_table_reservation.sql
+  - include:
+      file: db/changelog/create_table_processing_message.sql
+  - include:
+      file: db/changelog/create_table_inventory.sql
+  - include:
+      file: db/changelog/outbox/create_outbox_table.sql
+      relativeToChangelogFile: false

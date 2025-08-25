@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/create_products_table.sql
+  - include:
+      file: db/changelog/create_processing_messages.sql
+  - include:
+      file: db/changelog/create_tags_table.sql
+  - include:
+      file: db/changelog/outbox/create_outbox_table.sql
+      relativeToChangelogFile: false

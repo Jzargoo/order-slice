@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/create_orders_table.sql
+  - include:
+      file: db/changelog/create_order_items_table.sql
+  - include:
+        file: db/changelog/alter_orders_customer.sql
+  - include:
+      file: db/changelog/optimize_orders.sql
+  - include:
+      file: db/changelog/create_processing_messages.sql
+  - include:
+      file: db/changelog/outbox/create_outbox_table.sql
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/delete_price_in_order_items.sql

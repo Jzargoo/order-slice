@@ -1,0 +1,5 @@
+CREATE TABLE  processing_messages(
+                                     id VARCHAR(128) PRIMARY KEY,
+                                     type VARCHAR(32) NOT NULL,
+                                     processed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
