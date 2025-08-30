@@ -1,6 +1,7 @@
 package com.jzargo.core.registry;
 
 import com.jzargo.core.messages.command.BasicCommand;
+import com.jzargo.core.messages.event.BasicEvent;
 import org.reflections.Reflections;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +13,9 @@ public class MessageTypeRegistry {
 
     public MessageTypeRegistry () {
         String basePackageCommand = BasicCommand.class.getPackageName();
+        String basePackageEvent = BasicEvent.class.getPackageName();
         scanPackage(basePackageCommand);
+        scanPackage(basePackageEvent);
     }
 
     private void scanPackage(String basePackage) {

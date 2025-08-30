@@ -13,12 +13,15 @@ import com.jzargo.outboxMessaging.outbox.model.Outbox;
 import com.jzargo.outboxMessaging.outbox.repository.OutboxRepository;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.annotation.KafkaHandler;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
+@KafkaListener(topics = KafkaConfig.INVENTORY_RESERVATION_ORDER_COMMAND,
+        groupId = KafkaConfig.GROUP_ID)
 public class OrderSagaHandler {
     private final InventoryService inventoryService;
     private final ProcessingMessageRepository processingMessageRepository;
@@ -35,8 +38,7 @@ public class OrderSagaHandler {
     }
 
     @SneakyThrows
-    @KafkaListener(topics = KafkaConfig.INVENTORY_RESERVATION_ORDER_COMMAND,
-            groupId = KafkaConfig.GROUP_ID)
+    @KafkaHandler
     public void handleOrderCommand(InventoryReservationCommand reservationCommand,
                                    @Header(name = KafkaConfig.MESSAGE_ID) String messageId
                                    ) {

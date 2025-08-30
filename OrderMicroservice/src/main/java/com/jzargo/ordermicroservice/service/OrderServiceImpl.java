@@ -7,6 +7,7 @@ import com.jzargo.core.messages.command.OrderCreateCommandReject;
 import com.jzargo.core.messages.command.OrderCreateCommandReply;
 import com.jzargo.core.messages.command.OrderItemCommand;
 import com.jzargo.core.registry.MessageTypeRegistry;
+import com.jzargo.ordermicroservice.config.KafkaConfig;
 import com.jzargo.ordermicroservice.dto.OrderCreateRequest;
 import com.jzargo.ordermicroservice.mapper.OrderCreateMapper;
 import com.jzargo.ordermicroservice.model.Order;
@@ -98,12 +99,13 @@ public class OrderServiceImpl implements OrderService{
                 OrderState.WAITING_RESERVATION.name(), "This is a reply message");
 
         try {
-            String messageTypeName = messageTypeRegistry.getMessageTypeName(cmd.getClass());
+            String messageTypeName = messageTypeRegistry.getMessageTypeName(reply.getClass());
 
             outboxRepository.save(
                 Outbox.builder()
                         .createdAt(LocalDateTime.now())
                         .messageType(messageTypeName)
+                        .topicName(KafkaConfig.ORDER_REPLY_COMMAND)
                         .payload(objectMapper.writeValueAsString(reply))
                         .build()
             );

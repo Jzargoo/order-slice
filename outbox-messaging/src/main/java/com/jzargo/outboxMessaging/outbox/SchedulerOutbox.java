@@ -16,7 +16,6 @@ public class SchedulerOutbox {
 
     @Scheduled(fixedDelay = 10_000)
     public void processOutbox() {
-        log.info("Scheduler started to process outbox table...");
         outboxService.processingOutbox();
     }
 }

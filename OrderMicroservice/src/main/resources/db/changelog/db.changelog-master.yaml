@@ -10,7 +10,20 @@ databaseChangeLog:
   - include:
       file: db/changelog/create_processing_messages.sql
   - include:
+      file: db/changelog/delete_price_in_order_items.sql
+  - include:
+      file: db/changelog/create_saga_state.sql
+  - include:
+      file: db/changelog/alter_table_saga.sql
+  - include:
       file: db/changelog/outbox/create_outbox_table.sql
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/delete_price_in_order_items.sql
+      file: db/changelog/outbox/update_outbox.sql
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/outbox/delete_outbox_column.sql
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/outbox/add_topic_name.sql
+      relativeToChangelogFile: false

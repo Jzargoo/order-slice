@@ -36,8 +36,9 @@ import java.util.concurrent.CompletableFuture;
 @Transactional
 @KafkaListener(topics = {KafkaConfig.ORDER_REPLY_COMMAND,
         KafkaConfig.INVENTORY_RESERVATION_ORDER_COMMAND_REPLY,
-        KafkaConfig.PRODUCT_VERIFICATION_ORDER_REPLY_COMMAND
-})
+        KafkaConfig.PRODUCT_VERIFICATION_ORDER_REPLY_COMMAND},
+        groupId = KafkaConfig.GROUP_ID
+)
 public class OrderCreateSaga {
 
     private final KafkaTemplate<String, Object> kafkaTemplate;
@@ -120,8 +121,6 @@ public class OrderCreateSaga {
                 .build();
 
         ProductValidationCommand map = productValidationCommandMapper.map(cmd);
-
-        String messageTypeName = messageTypeRegistry.getMessageTypeName(cmd.getClass());
 
         saveOutbox(map,
                 map.getOrderId().toString(),

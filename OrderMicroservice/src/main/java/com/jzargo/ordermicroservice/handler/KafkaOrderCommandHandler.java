@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-@KafkaListener(topics = KafkaConfig.ORDER_COMMAND)
+@KafkaListener(topics = KafkaConfig.ORDER_COMMAND, groupId = KafkaConfig.GROUP_ID)
 public class KafkaOrderCommandHandler {
     private final OrderService orderService;
     private final ProcessingMessageRepository processingMessageRepository;

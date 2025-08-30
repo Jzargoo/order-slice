@@ -6,5 +6,17 @@ databaseChangeLog:
   - include:
       file: db/changelog/create_tags_table.sql
   - include:
+      file: db/changelog/alter_product_table.sql
+  - include:
       file: db/changelog/outbox/create_outbox_table.sql
       relativeToChangelogFile: false
+  - include:
+      file: db/changelog/outbox/update_outbox.sql
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/outbox/delete_outbox_column.sql
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/outbox/add_topic_name.sql
+      relativeToChangelogFile: false
+

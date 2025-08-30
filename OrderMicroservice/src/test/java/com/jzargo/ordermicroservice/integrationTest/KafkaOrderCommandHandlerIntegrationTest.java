@@ -2,6 +2,7 @@ package com.jzargo.ordermicroservice.integrationTest;
 
 import com.jzargo.core.messages.command.OrderCreateCommand;
 import com.jzargo.core.messages.command.OrderItemCommand;
+import com.jzargo.ordermicroservice.config.KafkaConfig;
 import com.jzargo.ordermicroservice.handler.KafkaOrderCommandHandler;
 import com.jzargo.ordermicroservice.service.OrderService;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -68,7 +69,7 @@ public class KafkaOrderCommandHandlerIntegrationTest {
                 orderCommand);
         String mid = UUID.randomUUID().toString();
 
-        producerRecord.headers().add("messageId", mid.getBytes());
+        producerRecord.headers().add(KafkaConfig.MESSAGE_ID_HEADER, mid.getBytes());
 
         kafkaTemplate.send(producerRecord).get();
 

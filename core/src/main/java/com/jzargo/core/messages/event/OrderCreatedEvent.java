@@ -1,6 +1,5 @@
 package com.jzargo.core.messages.event;
 
-import com.jzargo.core.messages.command.BasicCommand;
 import com.jzargo.core.registry.MessageType;
 import lombok.*;
 
@@ -10,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @EqualsAndHashCode(callSuper = true)
-public class OrderCreatedEvent extends BasicCommand {
+public class OrderCreatedEvent extends BasicEvent {
     private Long orderId;
     private Long customerId;
     private String orderStatus;

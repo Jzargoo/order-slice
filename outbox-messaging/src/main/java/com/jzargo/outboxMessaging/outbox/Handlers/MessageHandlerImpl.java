@@ -7,6 +7,8 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class MessageHandlerImpl implements MessageHandler{
 
@@ -30,7 +32,7 @@ public class MessageHandlerImpl implements MessageHandler{
                 payload.getKey(),
                 objectMapper.readValue(payload.getPayload(), messageTypeClass)
                 );
-        record.headers().add("messageId", payload.getMessageType().getBytes());
+        record.headers().add("message-id", UUID.randomUUID().toString().getBytes());
 
         kafkaTemplate.send(record);
     }

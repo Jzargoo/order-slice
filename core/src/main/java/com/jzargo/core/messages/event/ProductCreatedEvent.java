@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @EqualsAndHashCode(callSuper = true)
-public class ProductCreatedEvent extends BasicCommand {
+public class ProductCreatedEvent extends  BasicEvent{
     private Long productId;
     private Integer quantity;
 }

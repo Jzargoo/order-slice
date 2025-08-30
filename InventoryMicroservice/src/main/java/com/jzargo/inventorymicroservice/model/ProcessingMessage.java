@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "processing_message")
+@Table(name = "processing_messages")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

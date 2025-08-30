@@ -19,7 +19,7 @@ public class KafkaConfig {
     public static final String PRODUCT_VERIFICATION_ORDER_COMMAND = "product-verification-order-command";
     public static final String PRODUCT_VERIFICATION_ORDER_REPLY_COMMAND = "product-verification-order-reply-command";
 
-    public static final String MESSAGE_ID_HEADER = "messageId";
+    public static final String MESSAGE_ID_HEADER = "message-id";
     public static final String GROUP_ID = "product-verification-group";
 
 

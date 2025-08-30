@@ -1,9 +1,13 @@
 package com.jzargo.inventorymicroservice.config;
 
+import jakarta.persistence.EntityManagerFactory;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.kafka.config.TopicBuilder;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 public class KafkaConfig {
@@ -14,7 +18,7 @@ public class KafkaConfig {
             = "inventory-reservation-order-command";
      public static final String PRODUCT_EVENT_TOPIC = "product-event-topic";
     public static final String GROUP_ID = "inventory-group";
-    public static final String MESSAGE_ID = "message_id";
+    public static final String MESSAGE_ID = "message-id";
     public static final String ORDER_EVENT_TOPIC = "order-events";
 
     @Bean
@@ -24,6 +28,12 @@ public class KafkaConfig {
                 .replicas(3)
                 .config("min.insync.replicas", "2")
                 .build();
+    }
+
+    @Bean
+    @Primary
+    public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
+        return new JpaTransactionManager(emf);
     }
 
     @Bean

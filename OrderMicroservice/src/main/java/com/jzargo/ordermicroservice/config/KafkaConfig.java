@@ -14,6 +14,7 @@ public class KafkaConfig {
 
     public static final String ORDER_COMMAND = "order-command";
     public static final String ORDER_REPLY_COMMAND = "order-reply-command";
+    public static final String GROUP_ID = "order-group";
 
     // Name so long because of multiple potential sagas, e.g. product verification is not the only one
     public static final String PRODUCT_VERIFICATION_ORDER_COMMAND = "product-verification-order-command";

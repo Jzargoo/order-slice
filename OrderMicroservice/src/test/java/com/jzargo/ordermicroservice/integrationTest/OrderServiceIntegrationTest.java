@@ -3,6 +3,7 @@ package com.jzargo.ordermicroservice.integrationTest;
 
 import com.jzargo.core.messages.command.OrderCreateCommand;
 import com.jzargo.core.messages.command.OrderItemCommand;
+import com.jzargo.ordermicroservice.config.KafkaConfig;
 import com.jzargo.ordermicroservice.dto.OrderCreateRequest;
 import com.jzargo.ordermicroservice.dto.OrderItemsRequest;
 import com.jzargo.ordermicroservice.service.OrderService;
@@ -121,7 +122,7 @@ public class OrderServiceIntegrationTest {
 
         assertNotNull(poll);
         assertNotNull(poll.key());
-        assertNotNull(poll.headers().lastHeader("messageId"));
+        assertNotNull(poll.headers().lastHeader(KafkaConfig.MESSAGE_ID_HEADER));
 
         OrderCreateCommand value = poll.value();
 

@@ -1,0 +1,1 @@
+ALTER TABLE saga_state ADD COLUMN version bigint;

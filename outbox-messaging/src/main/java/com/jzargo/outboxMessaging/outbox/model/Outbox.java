@@ -20,11 +20,13 @@ public class Outbox {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "aggregate_type")
     private String messageType;
     private String topicName;
     @Column(name = "message_key")
     private String key;
     private LocalDateTime createdAt;
-    private Boolean processed;
+    @Builder.Default
+    private Boolean processed = false;
     private String payload;
 }

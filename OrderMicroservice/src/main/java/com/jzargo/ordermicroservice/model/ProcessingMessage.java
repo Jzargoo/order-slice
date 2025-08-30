@@ -1,5 +1,6 @@
 package com.jzargo.ordermicroservice.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -19,5 +20,6 @@ public class ProcessingMessage{
     private String id;
 
     private LocalDateTime createdAt;
+    @Column(name="message_type")
     private String type;
 }

@@ -91,6 +91,7 @@ public class InventoryServiceImpl implements InventoryService{
         }
 
         Reservation build = Reservation.builder()
+                .id(inventory.getProductId())
                 .quantity(item.getQuantity())
                 .productId(item.getProductId())
                 .orderId(reservationCommand.getOrderId())

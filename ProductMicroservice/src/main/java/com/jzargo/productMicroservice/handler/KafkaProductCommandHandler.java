@@ -15,9 +15,10 @@ import com.jzargo.productMicroservice.model.ProcessingMessage;
 import com.jzargo.productMicroservice.repository.ProcessingMessageRepository;
 import com.jzargo.productMicroservice.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.annotation.KafkaHandler;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.messaging.handler.annotation.Headers;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,8 @@ import java.time.LocalDateTime;
 
 @Component
 @Slf4j
+@KafkaListener(topics = KafkaConfig.PRODUCT_VERIFICATION_ORDER_COMMAND,
+        groupId = KafkaConfig.GROUP_ID)
 public class KafkaProductCommandHandler {
     private final ProductService productService;
     private final KafkaTemplate<String, Object> kafkaTemplate;
@@ -36,19 +39,19 @@ public class KafkaProductCommandHandler {
 
     public KafkaProductCommandHandler(ProductService productService,
                                       KafkaTemplate<String, Object> kafkaTemplate,
-                                      ProcessingMessageRepository processingMessageRepository, ObjectMapper objectMapper, MessageTypeRegistry messageTypeRegistry, MessageTypeRegistry messageTypeRegistry1, OutboxRepository outboxRepository) {
+                                      ProcessingMessageRepository processingMessageRepository, ObjectMapper objectMapper, MessageTypeRegistry messageTypeRegistry, OutboxRepository outboxRepository) {
         this.productService = productService;
         this.kafkaTemplate = kafkaTemplate;
         this.processingMessageRepository = processingMessageRepository;
         this.objectMapper = objectMapper;
-        this.messageTypeRegistry = messageTypeRegistry1;
+        this.messageTypeRegistry = messageTypeRegistry;
         this.outboxRepository = outboxRepository;
     }
 
     @Transactional
-    @KafkaListener(topics = KafkaConfig.PRODUCT_VERIFICATION_ORDER_COMMAND, groupId = KafkaConfig.GROUP_ID)
+    @KafkaHandler
     public void handleKafkaMessage(@Payload ProductValidationCommand cmd,
-                                    @Headers String messageId
+                                    @Header(KafkaConfig.MESSAGE_ID_HEADER) String messageId
                                     ) throws JsonProcessingException {
         if (processingMessageRepository.existsById(messageId)) {
             log.info("Message with ID {} already processed, skipping.", messageId);
